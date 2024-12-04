@@ -1,0 +1,4 @@
+vllm
+chromadb
+qdrant-client
+open-clip-torch
