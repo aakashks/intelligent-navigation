@@ -1,3 +1,5 @@
 *.pgm
 *.pyc
 *.zip
+.env
+.chromadb
