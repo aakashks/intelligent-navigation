@@ -1,9 +1,8 @@
-vllm
-chromadb
-open-clip-torch
-streamlit
-torch
-torchvision
+vllm==0.6.4.post1
+chromadb==0.5.21
+open-clip-torch==2.29.0
+streamlit==1.40.2
+# torch
+# torchvision
 pydantic
 requests
-numpy

@@ -4,3 +4,4 @@
 .env
 .chromadb
 archive/
+__pycache__/
