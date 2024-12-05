@@ -1,8 +1,9 @@
 vllm
 chromadb
-qdrant-client
 open-clip-torch
 streamlit
 torch
 torchvision
 pydantic
+requests
+numpy
