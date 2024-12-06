@@ -6,3 +6,6 @@ streamlit==1.40.2
 # torchvision
 pydantic
 requests
+uvicorn
+fastapi
+python-dotenv
