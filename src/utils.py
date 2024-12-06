@@ -70,57 +70,37 @@ def get_topk_paths_from_coord_data(coord_data, k=4):
     return path_pairs[:k]
 
 
-# Sample coordinate data
-coord_data = {
-    0: {
-        "object": "bed",
-        "points": [
-            {
-                "image_x": [49.8],
-                "image_y": [32.3],
-                "image_path": "/home/user1/s_ws/images/10.png",
-                "pose_key": "node_1_23",
-                "robot_name": "robot_1",
-                "timestamp": "2022-01-01_12:00:00",
-                "depth_image_path": "/home/user1/s_ws/depth/10.png",
-                "pose_x": 2.4,
-                "pose_y": 3.5,
-                "pose_z": 1.2,
-                "pose_w": 0.9
-            },
-            {
-                "image_x": [48.9],
-                "image_y": [35.4],
-                "image_path": "/home/user1/s_ws/images/11.png",
-                "pose_key": "node_1_29",
-                "robot_name": "robot_6",
-                "timestamp": "2022-01-01_10:00:00",
-                "depth_image_path": "/home/user1/s_ws/depth/11.png",
-                "pose_x": 2.4,
-                "pose_y": 3.5,
-                "pose_z": 1.2,
-                "pose_w": 0.9
-            }
-        ]
-    },
-    1: {
-        "object": "dustbin",
-        "points": [
-            {
-                "image_x": [37.9],
-                "image_y": [47.3],
-                "image_path": "/home/user1/s_ws/images/7.png"
-            },
-            {
-                "image_x": [11.9],
-                "image_y": [50.3],
-                "image_path": "/home/user1/s_ws/images/6.png"
-            },
-            {
-                "image_x": [25.6],
-                "image_y": [55.3],
-                "image_path": "/home/user1/s_ws/images/8.png"
-            }
-        ]
-    }
-}
+# # Sample coordinate data
+# coord_data = {
+#     0: {
+#         "object": "bed",
+#         "points": [
+#             {
+#                 "image_x": [49.8],
+#                 "image_y": [32.3],
+#                 "image_path": "/home/user1/s_ws/images/10.png",
+#                 "pose_key": "node_1_23",
+#                 "robot_name": "robot_1",
+#                 "timestamp": "2022-01-01_12:00:00",
+#                 "depth_image_path": "/home/user1/s_ws/depth/10.png",
+#                 "pose_x": 2.4,
+#                 "pose_y": 3.5,
+#                 "pose_z": 1.2,
+#                 "pose_w": 0.9
+#             },
+#             {
+#                 "image_x": [48.9],
+#                 "image_y": [35.4],
+#                 "image_path": "/home/user1/s_ws/images/11.png",
+#                 "pose_key": "node_1_29",
+#                 "robot_name": "robot_6",
+#                 "timestamp": "2022-01-01_10:00:00",
+#                 "depth_image_path": "/home/user1/s_ws/depth/11.png",
+#                 "pose_x": 2.4,
+#                 "pose_y": 3.5,
+#                 "pose_z": 1.2,
+#                 "pose_w": 0.9
+#             }
+#         ]
+#     },
+# }
