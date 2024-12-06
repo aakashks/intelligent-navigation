@@ -17,15 +17,15 @@ Populate the `.env` file with the following variables:
 ```env
 DB_URL=http://<db_server_ip>:8000
 VLLM_URL=http://<vllm_server_ip>:8080
-DATA_DIR=/path/to/remote/data
+REMOTE_DIR=/path/to/remote/data
 MOUNT_DIR=/path/to/mount
 OPENAI_API_KEY=your_openai_api_key
 ```
 
 - `DB_URL`: URL where the Chromadb embedding API is hosted.
 - `VLLM_URL`: URL where the vLLM server is hosted.
-- `DATA_DIR`: Directory path on the remote server containing images.
-- `MOUNT_DIR`: Local directory path where the remote `DATA_DIR` will be mounted.
+- `REMOTE_DIR`: Directory path on the remote server containing images.
+- `MOUNT_DIR`: Local directory path where the remote `REMOTE_DIR` will be mounted.
 - `OPENAI_API_KEY`: Your OpenAI API key for accessing language models.
 
 ### Mounting Remote File System
@@ -68,7 +68,7 @@ python db_server.py .chromadb/ --port 8000
 **Notes:**
 
 - `.chromadb/` is the directory where Chromadb will store its data.
-- Ensure that the server has access to the mounted data directory specified by `DATA_DIR`.
+- Ensure that the server has access to the mounted data directory specified by `REMOTE_DIR`.
 
 ### vLLM Vision Language Model Server
 

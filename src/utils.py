@@ -26,7 +26,7 @@ def get_topk_imgs_from_coord_data(coord_data, k=4):
         object_name = obj_data["object"]
         # Add all paths for this object
         for point_data in obj_data["points"]:
-            img = Image.open(point_data["image_path"].replace(os.getenv('SERVER_DIR', ''), os.getenv('MOUNT_DIR', '')))   # if using mounted directory of remote server
+            img = Image.open(point_data["image_path"].replace(os.getenv('REMOTE_DIR', ''), os.getenv('MOUNT_DIR', '')))   # if using mounted directory of remote server
             # img = Image.open(point_data["image_path"])
             draw = ImageDraw.Draw(img)
             
@@ -63,7 +63,7 @@ def get_topk_paths_from_coord_data(coord_data, k=4):
         object_name = obj_data["object"]
         # Add all paths for this object
         for point_data in obj_data["points"]:
-            img_path = point_data["image_path"].replace(os.getenv('SERVER_DIR', ''), os.getenv('MOUNT_DIR', ''))
+            img_path = point_data["image_path"].replace(os.getenv('REMOTE_DIR', ''), os.getenv('MOUNT_DIR', ''))
             path_pairs.append((object_name, img_path))
             
     # Return only top k pairs (they're already sorted by confidence)
