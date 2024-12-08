@@ -101,21 +101,21 @@ def extract_points(text: str) -> Optional[Dict[str, Union[List[float], str]]]:
     }
 
 
-def run_vlm(object_detections, concurrent_requests=50, timeout=240):  
+def run_vlm(user_query, object_detections, concurrent_requests=50, timeout=240):  
     coord_data = {}  
 
     for i, data in object_detections.items():  
-        template = f"Point to the {data['object']} in the image."  
-        image_paths = [result['image_path'] for result in data['results']]  
+        template = 'User has asked the robot - "{user_query}". Is the object {object_name} relevant to the user query. If yes, then Point to it in the given image.'
+        prompt = template.format(user_query=user_query, object_name=data['object'])
+
         image_b64_lst = [result['image_b64'] for result in data['results']]
 
-        ic(template)  
-        ic(image_paths)  
+        ic(prompt)
 
         vlm_results = asyncio.run(  
             run_image_queries(  
                 images_b64=image_b64_lst,   
-                prompts=template,   
+                prompts=prompt,   
                 timeout=timeout,   
                 concurrent_requests=concurrent_requests  
             )  

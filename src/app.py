@@ -6,7 +6,7 @@ from std_msgs.msg import String
 from db_client import EmbeddingClient
 from llm import get_possible_objects
 from vision import run_clip_on_objects, run_vlm
-from utils import get_topk_imgs_from_coord_data, get_count_from_coord_data
+from utils import get_topk_imgs_from_coord_data, get_count_from_coord_data, display_coord_data
 from PIL import Image
 import os
 from dotenv import load_dotenv
@@ -159,16 +159,17 @@ with main_col:
                 objects_json = get_possible_objects(prompt)
                 object_list = objects_json['possible_objects']
                 # object_list = ['bed', 'dustbin'] # for testing
-                st.write("Identified Objects:", ", ".join(object_list))
+                st.write("Possible Objects:", ", ".join(object_list))
                 status.update(label="✅ Command understood!", state="complete")
 
             # Step 2: Object Detection
             with st.status("🔍 Locating objects in environment...", expanded=False) as status:
                 obj_detection = run_clip_on_objects(object_list, db_client, topk=5)
                 # st.write("Located object at:", obj_detection)
-                coord_data = run_vlm(obj_detection)
+                status.update(label="🔍 Identifying objects in the environment...", state="running")
+                coord_data = run_vlm(prompt, obj_detection)
                 n_objects = get_count_from_coord_data(coord_data)
-                st.write("Navigation coordinates:", coord_data)
+                st.write("Navigation coordinates:", display_coord_data(coord_data))
                 status.update(label=f"✅ {n_objects} Possible objects located!", state="complete")
 
             # After getting coord_data, display the detected objects
@@ -196,7 +197,7 @@ with main_col:
 
             st.success("🎉 Command successfully processed and sent to robots!")
 
-            # Robot Feedback - Waiting for robots to reach the target
+            # Robot Feedback
             with st.status("📡 Waiting for robots to reach the target...", expanded=True) as status:
                 feedback_received = False
                 for i in range(os.getenv('WAIT_FOR_GOAL', 120)):  # Wait up to 120 seconds for the robot

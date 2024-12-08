@@ -12,7 +12,20 @@ def get_count_from_coord_data(coord_data):
         count += len(obj_data["points"])
         
     return count
+
+def display_coord_data(coord_data):
+    """
+    Get the total count of objects from the given coordinate data.
+    """
+    displayable_coord_data = coord_data.copy()
+    
+    for obj_id in coord_data:
+        for data in coord_data[obj_id]["points"]:
+            data.pop("depth_image_path", None)
+            data.pop('image_b64', None)
         
+    return displayable_coord_data        
+
 
 def get_topk_imgs_from_coord_data(coord_data, k=4):
     """
