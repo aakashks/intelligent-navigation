@@ -104,12 +104,14 @@ async def run_image_queries(image_paths=None, images_b64=None, prompts=None, tim
     Returns:  
         list: List of API responses for each image.  
     """  
-    if not (image_paths or images_b64):  
-        raise ValueError("Either 'image_paths' or 'images_b64' must be provided.")  
-
+    
     # Convert image paths to base64 if provided  
     if image_paths:  
         images_b64 = [encode_image_to_base64(path) for path in image_paths]  
+    elif images_b64:  
+        images_b64 = [f"data:image/jpeg;base64,{image}" for image in images_b64]
+    else:  
+        raise ValueError("Either 'image_paths' or 'images_b64' must be provided.")
 
     semaphore = asyncio.Semaphore(concurrent_requests)
     connector = aiohttp.TCPConnector(limit=concurrent_requests)

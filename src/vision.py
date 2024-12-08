@@ -107,15 +107,15 @@ def run_vlm(object_detections, concurrent_requests=50, timeout=240):
     for i, data in object_detections.items():  
         template = f"Point to the {data['object']} in the image."  
         image_paths = [result['image_path'] for result in data['results']]  
-        image_base64_lst = [result['image_base64'] for result in data['results']]
+        image_b64_lst = [result['image_b64'] for result in data['results']]
 
         ic(template)  
         ic(image_paths)  
 
         vlm_results = asyncio.run(  
             run_image_queries(  
-                image_base64_lst,   
-                template,   
+                images_b64=image_b64_lst,   
+                prompts=template,   
                 timeout=timeout,   
                 concurrent_requests=concurrent_requests  
             )  

@@ -33,7 +33,7 @@ def get_topk_imgs_from_coord_data(coord_data, k=4):
             width, height = img.size
             
             # Draw red dots at each coordinate pair
-            for x, y in zip(point_data["x_coordinates"], point_data["y_coordinates"]):
+            for x, y in zip(point_data["image_x"], point_data["image_y"]):
                 # Convert percentage to actual pixels
                 pixel_x = int(x * width / 100)
                 pixel_y = int(y * height / 100)
