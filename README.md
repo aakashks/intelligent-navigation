@@ -17,39 +17,16 @@ Populate the `.env` file with the following variables:
 ```env
 DB_URL=http://<db_server_ip>:8000
 VLLM_URL=http://<vllm_server_ip>:8080
-REMOTE_DIR=/path/to/remote/data
-MOUNT_DIR=/path/to/mount
+DATA_DIR=/path/to/local/data
 OPENAI_API_KEY=your_openai_api_key
 ```
 
 - `DB_URL`: URL where the Chromadb embedding API is hosted.
 - `VLLM_URL`: URL where the vLLM server is hosted.
-- `REMOTE_DIR`: Directory path on the remote server containing images.
-- `MOUNT_DIR`: Local directory path where the remote `REMOTE_DIR` will be mounted.
+- `DATA_DIR`: Directory path on the local machine where the data will be stored.
 - `OPENAI_API_KEY`: Your OpenAI API key for accessing language models.
 
-### Mounting Remote File System
-
-To make images available to the embedding API, mount the remote server's file system to your local machine using `sshfs`. Ensure `sshfs` is installed on your system.
-
-```bash
-sudo apt-get install sshfs  # For Debian/Ubuntu
-```
-
-Mount the remote directory:
-
-```bash
-sshfs <username>@<remote_ip>:/path/to/remote/data /path/to/mount
-```
-
-**Replace the placeholders:**
-
-- `<username>`: Your username on the remote server.
-- `<remote_ip>`: IP address of the remote server.
-- `/path/to/remote/data`: Path to the data directory on the remote server.
-- `/path/to/mount`: Local directory where the remote data will be accessible.
-
-## Running the Services
+## Running the Services (on the Remote Server)
 
 Ensure that each service is running in its own terminal or consider using a process manager like `tmux`, `screen`, or `docker-compose` for managing multiple services.
 
@@ -57,18 +34,23 @@ Ensure that each service is running in its own terminal or consider using a proc
 
 The embedding API is a custom-built service using FastAPI and Uvicorn. It calculates and stores image embeddings and provides an API to query images based on these embeddings.
 
+**Fix Chromadb Bug:**
+
+Before starting the embedding API server, run the following script to fix known bugs in chromadb library:
+
+```bash
+python fix_chromadb_bug.py
+```
+
 **Start the Embedding API Server:**
 
 ```bash
 cd /path/to/remote/data
 # make sure to copy the db_server.py file to the data directory
-python db_server.py .chromadb/ --port 8000
+python db_server.py . --port 8000
 ```
 
-**Notes:**
-
-- `.chromadb/` is the directory where Chromadb will store its data.
-- Ensure that the server has access to the mounted data directory specified by `REMOTE_DIR`.
+- `/path/to/remote/data/` is the directory where Chromadb will store its data on the remote server.
 
 ### vLLM Vision Language Model Server
 
@@ -77,13 +59,12 @@ The vLLM server hosts the vision-language model responsible for interpreting and
 **Start the vLLM Server:**
 
 ```bash
-vllm serve allenai/Molmo-7B-D-0924 --task generate \
-  --trust-remote-code --max-model-len 4096 --dtype bfloat16 --port 8080
+vllm serve allenai/Molmo-7B-D-0924 --task generate --trust-remote-code --max-model-len 4096 --dtype bfloat16 --port 8080
 ```
 
 **Notes:**
 
-- `allenai/Molmo-7B-D-0924` specifies the pre-trained model to use.
+- `allenai/Molmo-7B-D-0924` specifies the vision language model to use.
 - Ensure that the server has at least 16 GB of GPU memory available.
 - Adjust the `--port` if necessary to avoid conflicts.
 

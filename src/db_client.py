@@ -1,5 +1,6 @@
 import requests
 from typing import List, Dict, Any
+import base64
 import logging
 
 class EmbeddingClient:
@@ -17,9 +18,14 @@ class EmbeddingClient:
         """
         Update the database with new pose data
         """
+
+        with open(image_path, 'rb') as image_file:
+            base64_image = base64.b64encode(image_file.read()).decode("utf-8")
+        
         data = {
             "pose_key": pose_key,
             "image_path": image_path,
+            "image_b64": base64_image,
             "robot_name": robot_name,
             "timestamp": timestamp,
             "depth_image_path": depth_image_path,

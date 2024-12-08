@@ -2,7 +2,7 @@ import asyncio
 import re
 from typing import Dict, List, Optional, Union
 from icecream import ic
-from vlm import run_multiple_image_query_same_prompt
+from vlm import run_image_queries
 
 
 def run_clip_on_objects(object_list, client, topk=5):  
@@ -107,13 +107,14 @@ def run_vlm(object_detections, concurrent_requests=50, timeout=240):
     for i, data in object_detections.items():  
         template = f"Point to the {data['object']} in the image."  
         image_paths = [result['image_path'] for result in data['results']]  
+        image_base64_lst = [result['image_base64'] for result in data['results']]
 
         ic(template)  
         ic(image_paths)  
 
         vlm_results = asyncio.run(  
-            run_multiple_image_query_same_prompt(  
-                image_paths,   
+            run_image_queries(  
+                image_base64_lst,   
                 template,   
                 timeout=timeout,   
                 concurrent_requests=concurrent_requests  
