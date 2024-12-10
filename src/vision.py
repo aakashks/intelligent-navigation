@@ -105,7 +105,7 @@ def run_vlm(user_query, object_detections, concurrent_requests=50, timeout=240):
     coord_data = {}  
 
     for i, data in object_detections.items():  
-        template = 'User has asked the robot - "{user_query}". Is the object {object_name} relevant to the user query. If yes, then Point to it in the given image.'
+        template = 'User has asked the robot - "{user_query}". Point to the {object_name} in the image that will fulfill the user query.'
         prompt = template.format(user_query=user_query, object_name=data['object'])
 
         image_b64_lst = [result['image_b64'] for result in data['results']]

@@ -108,7 +108,7 @@ if "db_client" not in st.session_state:
 db_client = st.session_state.db_client
 
 # Main UI
-st.title("Intelligent Swarm Robotics Command Center")
+st.title("Centralized Intelligence For Dynamic Swarm Navigation")
 
 # Add a toggle button for the status panel
 if 'show_status' not in st.session_state:
@@ -133,7 +133,7 @@ else:
 
 with main_col:
     st.markdown("""
-    ### Welcome to the Robot Command Interface
+    ### Welcome to the Swarm Command Center!
     This system allows you to control swarm robots using natural language commands. 
     The robots will understand your instructions and navigate to the specified objects or locations.
 
