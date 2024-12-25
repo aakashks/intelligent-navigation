@@ -163,4 +163,3 @@ cython_debug/
 
 *.pgm
 .chromadb/
-archive/

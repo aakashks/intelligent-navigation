@@ -53,3 +53,15 @@ class EmbeddingClient:
             self.logger.error(f"Error querying: {str(e)}")
             raise
 
+
+# Database update can be done in the following way:
+# db_client = EmbeddingClient(os.getenv('DB_URL', 'http://localhost:8000'))
+
+# db_client.update_db(
+#     pose_key=pose_key,
+#     timestamp=timestamp,
+#     robot_name=robot_name,
+#     image_path=image_path,
+#     depth_image_path=depth_npz_path,
+#     pose=pose_data
+# )
